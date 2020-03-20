@@ -12,10 +12,14 @@ import java.util.List;
 
 public class AppService {
 
-    private final Database db;
+    private Database db;
 
     public AppService(Database db) {
         this.db = db;
+    }
+
+    public AppService() {
+
     }
 
     public Collection<Flight> getAllFlightsByDaily() {

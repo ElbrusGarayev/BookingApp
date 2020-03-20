@@ -10,10 +10,14 @@ import java.util.stream.Collectors;
 
 public class DAOAbstractFileBin<A extends Identifiable> implements DAO<A> {
 
-    private final File file;
+    private File file;
 
     public DAOAbstractFileBin(String filename) {
         this.file = new File(filename);
+    }
+
+    public DAOAbstractFileBin() {
+
     }
 
     @Override

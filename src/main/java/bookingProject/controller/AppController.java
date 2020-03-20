@@ -14,12 +14,16 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 
 public class AppController {
-    private final Console console;
-    private final AppService service;
+    private  Console console;
+    private  AppService service;
 
     public AppController(Console console, AppService service) {
         this.console = console;
         this.service = service;
+    }
+
+    public AppController() {
+
     }
 
     public void cancelBooking() {
@@ -40,6 +44,13 @@ public class AppController {
             String id = console.readLn();
             if (!(maxBookID < parseInt(id) || parseInt(id) <= (maxBookID - allBookings.size()))) {
                 service.cancelBooking(parseInt(id));
+
+                for (Booking b: allBookings) {
+                    if(b.getId() == parseInt(id)){
+                        increaseSeats(b);
+                        break;
+                    }
+                }
                 console.printLn("Booking canceled!");
             } else console.printLn("Wrong ID!");
 
@@ -125,6 +136,16 @@ public class AppController {
         for (Flight flight : allFlights) {
             if (flight.getId() == flightID) {
                 flight.setSeats(flight.getSeats() - passCount);
+            }
+        }
+        service.updateSeatsCount(allFlights);
+    }
+
+    public void increaseSeats(Booking b) {
+        Collection<Flight> allFlights = service.getAllFlights();
+        for (Flight flight : allFlights) {
+            if (flight.getId() == b.getFlight_id()) {
+                flight.setSeats(flight.getSeats() + b.getPassengers().size());
             }
         }
         service.updateSeatsCount(allFlights);

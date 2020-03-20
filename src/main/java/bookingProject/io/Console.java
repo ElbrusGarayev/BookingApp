@@ -11,5 +11,4 @@ public interface Console {
   }
   void print(String line);
   String readLn();
-//  String read();
 }
