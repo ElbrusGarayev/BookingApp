@@ -31,7 +31,7 @@ public class BookingApp {
             switch (line) {
                 case "1":
                     console.printLn("||=================================================================||\n" +
-                                         "||                           Online Board                          ||");
+                            "||                           Online Board                          ||");
                     controller.showAllFlights();
                     break;
                 case "2":

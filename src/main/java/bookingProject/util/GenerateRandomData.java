@@ -14,7 +14,7 @@ public class GenerateRandomData {
     }
 
     public static String randomCityTo() {
-        return cities[rnd(cities.length-1,0)];
+        return cities[rnd(cities.length - 1, 0)];
     }
 
     private static int rnd(int max, int min) {
@@ -28,9 +28,9 @@ public class GenerateRandomData {
 
     public static LocalDateTime randomData() {
         return LocalDateTime.of(2020,
-                rnd(LocalDateTime.now().getMonth().getValue() + 1, LocalDateTime.now().getMonth().getValue()) ,
+                rnd(LocalDateTime.now().getMonth().getValue() + 1, LocalDateTime.now().getMonth().getValue()),
                 rnd(28, LocalDateTime.now().getDayOfMonth()),
-                6 + rnd(17, 0 ),
+                6 + rnd(17, 0),
                 rnd(11, 0) * 5);
     }
 }

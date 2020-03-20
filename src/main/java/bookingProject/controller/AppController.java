@@ -14,8 +14,8 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 
 public class AppController {
-    private  Console console;
-    private  AppService service;
+    private Console console;
+    private AppService service;
 
     public AppController(Console console, AppService service) {
         this.console = console;
@@ -45,8 +45,8 @@ public class AppController {
             if (!(maxBookID < parseInt(id) || parseInt(id) <= (maxBookID - allBookings.size()))) {
                 service.cancelBooking(parseInt(id));
 
-                for (Booking b: allBookings) {
-                    if(b.getId() == parseInt(id)){
+                for (Booking b : allBookings) {
+                    if (b.getId() == parseInt(id)) {
                         increaseSeats(b);
                         break;
                     }
@@ -65,22 +65,20 @@ public class AppController {
         Passenger pas = new Passenger(name, surname);
         Collection<Booking> allBookings = service.getAllBookings();
         Collection<Flight> allFlights = service.getAllFlights();
-        if(!allBookings.isEmpty()){
+        if (!allBookings.isEmpty()) {
             console.printLn("||=================================================================||\n" +
                     "||                           My Flights                            ||\n" +
                     "||=================================================================||\n");
             for (Booking b : allBookings) {
                 for (Flight f : allFlights) {
-                    if (b.getFlight_id() == f.getId() || b.getPassengers().stream().anyMatch(o ->
+                    if (b.getFlight_id() == f.getId() && b.getPassengers().stream().anyMatch(o ->
                             o.getFirstname().equals(name) && o.getLastname().equals(surname))) {
                         console.printLn(f.represent() + "\n" + b.represent() + "\n");
                         break;
                     }
                 }
             }
-        }
-        else console.printLn("You don't have any bookings!");
-
+        } else console.printLn("You don't have any bookings!");
     }
 
     public void searchAndMakeBooking() {
