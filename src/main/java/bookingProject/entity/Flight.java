@@ -67,7 +67,7 @@ public class Flight implements Serializable, Identifiable {
         return String.format("||=================================================================||\n" +
                         "||ID:%3d | %-10s -> %-10s : %10s : Seats: %3d||\n" +
                         "||_________________________________________________________________||"
-                , id, cityFrom, cityTo, date.format(DateTimeFormatter.ofPattern("YYYY-MM-dd hh:mm")), seats);
+                , id, cityFrom, cityTo, date.format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm")), seats);
     }
 
 

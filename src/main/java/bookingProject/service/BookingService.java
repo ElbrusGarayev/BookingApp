@@ -5,36 +5,19 @@ import bookingProject.entity.Booking;
 import bookingProject.entity.Flight;
 import bookingProject.entity.Passenger;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
 
-public class AppService {
+public class BookingService {
 
     private Database db;
 
-    public AppService(Database db) {
+    public BookingService(Database db) {
         this.db = db;
     }
 
-    public AppService() {
+    public BookingService() {
 
-    }
-
-    public Collection<Flight> getAllFlightsByDaily() {
-
-        return db.flights.getAllBy(f -> (LocalDateTime.now())
-                .format(DateTimeFormatter.ofPattern("YYYY-MM-dd")).equals(f.getDate()
-                        .format(DateTimeFormatter.ofPattern("YYYY-MM-dd"))));
-    }
-
-    public Collection<Flight> getAllFlights() {
-        return db.flights.getAll();
-    }
-
-    public Flight getFlight(int id) {
-        return db.flights.get(id).get();
     }
 
     public void makeBooking(int flightId, List<Passenger> passengers) {
@@ -54,4 +37,7 @@ public class AppService {
         db.flights.update(flights);
     }
 
+    public Collection<Flight> getAllFlights() {
+        return db.flights.getAll();
+    }
 }

@@ -30,7 +30,7 @@ public class GenerateRandomData {
         return LocalDateTime.of(2020,
                 rnd(LocalDateTime.now().getMonth().getValue() + 1, LocalDateTime.now().getMonth().getValue()),
                 rnd(28, LocalDateTime.now().getDayOfMonth()),
-                6 + rnd(17, 0),
+                rnd(23, 0),
                 rnd(11, 0) * 5);
     }
 }
