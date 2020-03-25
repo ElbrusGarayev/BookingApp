@@ -42,13 +42,13 @@ public class BookingService {
 
     public String cancelBooking(int idMax, int id) {
         if (!(idMax < id || id <= (idMax - getAllBookings().size()))) {
-            db.bookings.delete(id);
             for (Booking b : getAllBookings()) {
                 if (b.getId() ==(long) id) {
                     increaseSeats(b);
                     break;
                 }
             }
+            db.bookings.delete(id);
             return "Booking canceled!";
         } else return "Wrong ID!";
     }

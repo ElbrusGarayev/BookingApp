@@ -1,7 +1,8 @@
 package bookingProject;
 
+import bookingProject.dao.BookingDAO;
 import bookingProject.dao.DAO;
-import bookingProject.dao.DAOAbstractFileBin;
+import bookingProject.dao.FlightDAO;
 import bookingProject.entity.Booking;
 import bookingProject.entity.Flight;
 
@@ -17,8 +18,8 @@ public class Database {
 
     public Database() {
 
-        this.flights = new DAOAbstractFileBin<>("flights.bin");
-        this.bookings = new DAOAbstractFileBin<>("bookings.bin");
+        this.flights = new FlightDAO<>("flights.bin");
+        this.bookings = new BookingDAO<>("bookings.bin");
 
         setMaxCounters();
         if (flights.getAll().isEmpty()) createInitialData();
