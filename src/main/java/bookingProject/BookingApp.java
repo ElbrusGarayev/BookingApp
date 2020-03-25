@@ -14,9 +14,9 @@ public class BookingApp {
         Console console = new UnixConsole(new Scanner(System.in));
         Database db = new Database();
         FlightService flightService = new FlightService(db);
-        BookingService bookingService = new BookingService(db);
+        BookingService bookingService = new BookingService(db,flightService);
         FlightController flightControl = new FlightController(console, flightService);
-        BookingController bookingControl = new BookingController(console, bookingService);
+        BookingController bookingControl = new BookingController(console, bookingService, flightService);
 
         int u = -1;
         boolean exit = false;

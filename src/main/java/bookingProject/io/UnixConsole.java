@@ -20,8 +20,4 @@ public class UnixConsole implements Console {
     return scanner.nextLine();
   }
 
-//  @Override
-//  public String read() {
-//    return scanner.next();
-//  }
 }
