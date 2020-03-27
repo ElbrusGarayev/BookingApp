@@ -1,5 +1,7 @@
 package bookingProject.dao;
 
+import bookingProject.entity.Booking;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,7 +10,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class BookingDAO<Booking extends Identifiable> implements DAO<Booking> {
+public class BookingDAO implements DAO<Booking> {
 
     private File file;
 

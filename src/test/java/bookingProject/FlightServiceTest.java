@@ -1,14 +1,11 @@
 package bookingProject;
 
 import bookingProject.entity.Flight;
-import bookingProject.entity.Passenger;
 import bookingProject.service.FlightService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,18 +41,8 @@ public class FlightServiceTest {
 
     @Test
     void showAvaiableFlightsNull() {
-        String expected = "";
         String actual = flightService.showAvaiableFlights("Baku","2021-03","1");
-        assertEquals(expected,actual);
-    }
-
-    @Test
-    void showAvaiableFlights() {
-        String expected = "||=================================================================||\n" +
-                "||ID:253 | Kiev       -> Baku       : 2020-03-26 12:00 : Seats: 200||\n" +
-                "||_________________________________________________________________||\n";
-        String actual = flightService.showAvaiableFlights("Baku","2020-03","200");
-        assertEquals(expected,actual);
+        assertTrue(actual.isEmpty());
     }
 
     @Test

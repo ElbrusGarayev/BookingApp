@@ -6,6 +6,7 @@ import bookingProject.entity.Passenger;
 import bookingProject.io.Console;
 import bookingProject.service.BookingService;
 import bookingProject.service.FlightService;
+import bookingProject.service.UserService;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,11 +19,13 @@ public class BookingController {
     private Console console;
     private BookingService bookingService;
     private FlightService flightService;
+    private UserService userService;
 
-    public BookingController(Console console, BookingService service, FlightService flightService) {
+    public BookingController(Console console, BookingService service, FlightService flightService, UserService userService) {
         this.console = console;
         this.bookingService = service;
         this.flightService = flightService;
+        this.userService = userService;
     }
 
     public BookingController(BookingService bookingService, FlightService flightService) {
@@ -46,7 +49,8 @@ public class BookingController {
                     if (b.getPassengers().stream().anyMatch(
                             o -> o.getFirstname().equals(name)
                                     && o.getLastname().equals(surname))
-                            && b.getFlight_id() == f.getId()) {
+                            && b.getFlight_id() == f.getId()
+                            && b.getUser_id() == userService.loggedID) {
                         console.printLn(f.represent() + "\n" + b.represent() + "\n");
                         break;
                     }
@@ -57,16 +61,22 @@ public class BookingController {
 
     public void searchAndMakeBooking() {
         List<Passenger> passengers = new ArrayList<>();
-        console.print("Enter the destination: ");
-        String destination = console.readLn();
-        console.print("Enter the date: ");
-        String date = console.readLn();
-        console.print("Enter the passengers' count: ");
-        String passCount = console.readLn();
-
+        String destination = "";
+        String date = "";
+        String passCount = "";
+        try{
+            console.print("Enter the destination: ");
+            destination = console.readLn();
+            console.print("Enter the date: ");
+            date = console.readLn();
+            console.print("Enter the passengers' count: ");
+            passCount = console.readLn();
+        }catch (Exception e){
+            console.printLn("Invalid input!");
+        }
         String avaiableFlights = flightService.showAvaiableFlights(destination, date, passCount);
 
-        if (avaiableFlights == null) console.printLn("No flight were found matching these criteria!");
+        if (avaiableFlights.isEmpty()) console.printLn("No flight were found matching these criteria!");
         else {
             console.printLn(avaiableFlights);
             console.print("1. Book a flight\n" +
@@ -83,7 +93,7 @@ public class BookingController {
                     }
                     console.print("Enter the flight ID which you want book: ");
                     String id = console.readLn();
-                    Booking booking = new Booking(parseInt(id), passengers);
+                    Booking booking = new Booking(userService.loggedID, parseInt(id), passengers);
                     List<Long> avaiableFlightsID = flightService.avaiableFlightsID(destination, date, passCount);
 
                     console.printLn(bookingService.makeBooking(booking, avaiableFlightsID, passCount, id));
@@ -99,17 +109,22 @@ public class BookingController {
 
     public void cancelBooking() {
         ArrayList<Booking> bookings = (ArrayList<Booking>) bookingService.getAllBookings();
+        int maxBookID = 0;
+        if(!bookings.isEmpty())
+            maxBookID = (int) bookings.get(bookings.size() - 1).getId();
+        Collection<Flight> allFlights = flightService.getAllFlights();
 
-        if (!bookings.isEmpty()) {
-            int maxBookID = (int) bookings.get(bookings.size() - 1).getId() ;
-            Collection<Flight> allFlights = flightService.getAllFlights();
+        if (!bookingService.showAvaiableBookings(allFlights).isEmpty()) {
             console.printLn(bookingService.showAvaiableBookings(allFlights));
-
             console.print("Enter the ID of you want cancel: ");
-            String id = console.readLn();
-            console.printLn(bookingService.cancelBooking(maxBookID, parseInt(id)));
-
-        } else console.printLn("You don't have any bookings!");
+            try {
+                String id = console.readLn();
+                console.printLn(bookingService.cancelBooking(maxBookID, parseInt(id)));
+            } catch (Exception e) {
+                console.printLn("Invalid input!");
+            }
+        } else
+            console.printLn("You don't have any bookings!");
     }
 
 

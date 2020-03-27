@@ -28,12 +28,15 @@ public class FlightController {
         List<Flight> allFlights = new ArrayList<>(service.getAllFlights());
         int minFlightID = (int) allFlights.get(0).getId();
         int maxFlightID = (int) allFlights.get(allFlights.size() - 1 ).getId();
-
         console.print("Enter the flight ID: ");
-        String id = console.readLn();
-        if(!(parseInt(id) > maxFlightID || parseInt(id) < minFlightID))
-            console.printLn(service.getFlight(parseInt(id)).represent());
-        else console.printLn("Wrong Flight ID!");
+        try{
+            String id = console.readLn();
+            if(!(parseInt(id) > maxFlightID || parseInt(id) < minFlightID))
+                console.printLn(service.getFlight(parseInt(id)).represent());
+            else console.printLn("Wrong Flight ID!");
+        }catch (Exception e){
+            console.printLn("Invalid input!");
+        }
     }
 }
 

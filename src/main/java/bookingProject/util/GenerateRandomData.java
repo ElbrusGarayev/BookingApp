@@ -6,14 +6,15 @@ public class GenerateRandomData {
 
     private final static String[] cities = {"Baku", "Lviv", "Kharkiv",
             "Delaware", "Abu-Dabi", "Dubai", "Ankara", "New-York", "Istanbul", "Oslo",
-            "London", "Brasil", "Tokio", "Paris"};
+            "London", "Brasil", "Tokio", "Paris", "Miami", "Honk-Kong", "Boston", "Wuhan"};
 
 
     public static String randomCityFrom() {
-        return "Kiev";
+        return cities[rnd(cities.length - 1, 0)];
     }
 
     public static String randomCityTo() {
+
         return cities[rnd(cities.length - 1, 0)];
     }
 

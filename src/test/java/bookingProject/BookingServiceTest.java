@@ -4,6 +4,7 @@ import bookingProject.entity.Booking;
 import bookingProject.entity.Passenger;
 import bookingProject.service.BookingService;
 import bookingProject.service.FlightService;
+import bookingProject.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,12 +15,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BookingServiceTest {
     BookingService bookingService;
     FlightService flightService;
+    UserService userService;
     Database db;
     @BeforeEach
     public void initialize() {
         this.db = new Database();
         this.flightService = new FlightService(db);
-        this.bookingService = new BookingService(db,flightService);
+        this.userService = new UserService(db);
+        this.bookingService = new BookingService(db, flightService, userService);
         
     }
 
@@ -50,7 +53,7 @@ public class BookingServiceTest {
         List<Long> flightsID = flightService.avaiableFlightsID("Baku","2020-03","1");
         long index = (long) (Math.random() * flightsID.size()) ;
         long id = flightService.getFlight(flightsID.get((int) index)).getId();
-        Booking booking = (new Booking(8, id, passengers));
+        Booking booking = (new Booking(8, 8, id, passengers));
         bookingService.makeBooking(booking,flightsID,"1",String.valueOf(id));
         ArrayList<Booking> bookings = (ArrayList<Booking>) bookingService.getAllBookings();
         int maxBookID = (int) bookings.get(bookings.size() - 1).getId();

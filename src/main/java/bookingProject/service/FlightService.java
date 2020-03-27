@@ -21,7 +21,7 @@ public class FlightService {
 
     public Collection<Flight> getAllFlightsByDaily() {
         return db.flights.getAllBy(f -> (f.getDate().isAfter(LocalDateTime.now())
-                && f.getDate().isBefore(LocalDateTime.now().plusHours(24))));
+                && f.getDate().isBefore(LocalDateTime.now().plusHours(12))));
     }
 
     public Collection<Flight> getAllFlights() {

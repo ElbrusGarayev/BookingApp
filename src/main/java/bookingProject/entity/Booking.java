@@ -8,6 +8,7 @@ import java.util.List;
 public class Booking implements Serializable, Identifiable {
     private long id;
     private long flight_id;
+    private long user_id;
     private List<Passenger> passengers;
 
     static long counter = 0;
@@ -18,12 +19,13 @@ public class Booking implements Serializable, Identifiable {
         Booking.counter = counter;
     }
 
-    public Booking(long flight_id, List<Passenger> passengers) {
-        this(++counter, flight_id, passengers);
+    public Booking(long user_id, long flight_id, List<Passenger> passengers) {
+        this(++counter, user_id, flight_id, passengers);
     }
 
-    public Booking(long id, long flight_id, List<Passenger> passengers) {
+    public Booking(long id, long user_id, long flight_id, List<Passenger> passengers) {
         this.id = id;
+        this.user_id = user_id;
         this.flight_id = flight_id;
         this.passengers = passengers;
     }
@@ -37,6 +39,10 @@ public class Booking implements Serializable, Identifiable {
         return flight_id;
     }
 
+    public long getUser_id() {
+        return user_id;
+    }
+
     public List<Passenger> getPassengers() {
         return passengers;
     }
@@ -45,7 +51,7 @@ public class Booking implements Serializable, Identifiable {
         StringBuilder sb = new StringBuilder();
         sb.append("Passengers:\n");
         for (Passenger p : passengers) {
-            sb.append(p.getFirstname() + " " + p.getLastname() + "\n");
+            sb.append(p.getFirstname()).append(" ").append(p.getLastname()).append("\n");
         }
         return sb.toString();
     }

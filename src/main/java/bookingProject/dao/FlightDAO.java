@@ -10,8 +10,8 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class FlightDAO<Flight extends Identifiable> implements DAO<Flight> {
-    private File file;
+public class FlightDAO implements DAO<Flight> {
+        private File file;
 
     public FlightDAO(String filename) {
         this.file = new File(filename);
