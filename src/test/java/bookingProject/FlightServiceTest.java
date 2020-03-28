@@ -41,7 +41,7 @@ public class FlightServiceTest {
 
     @Test
     void showAvaiableFlightsNull() {
-        String actual = flightService.showAvaiableFlights("Baku","2021-03","1");
+        String actual = flightService.showAvaiableFlights("Dubai", "Baku","2021-03","1");
         assertTrue(actual.isEmpty());
     }
 

@@ -61,10 +61,13 @@ public class BookingController {
 
     public void searchAndMakeBooking() {
         List<Passenger> passengers = new ArrayList<>();
+        String location = "";
         String destination = "";
         String date = "";
         String passCount = "";
         try{
+            console.print("Enter the location: ");
+            location = console.readLn();
             console.print("Enter the destination: ");
             destination = console.readLn();
             console.print("Enter the date: ");
@@ -74,7 +77,7 @@ public class BookingController {
         }catch (Exception e){
             console.printLn("Invalid input!");
         }
-        String avaiableFlights = flightService.showAvaiableFlights(destination, date, passCount);
+        String avaiableFlights = flightService.showAvaiableFlights(location, destination, date, passCount);
 
         if (avaiableFlights.isEmpty()) console.printLn("No flight were found matching these criteria!");
         else {
